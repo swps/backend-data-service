@@ -32,7 +32,7 @@ public class ContactNote {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
+    @JoinColumn(name = "social_contact_id")
+    private SocialContact socialContact;
 
 }

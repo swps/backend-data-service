@@ -7,14 +7,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 /**
  * Created by wendel.schultz on 9/19/15.
  */
 @Entity
-@Table(name = "notifications")
-public class Notification {
+@Table(name = "contacts")
+public class SocialContact {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -32,19 +33,31 @@ public class Notification {
     @LastModifiedDate
     private ZonedDateTime updatedDate;
 
+    @Column
+    private String firstName;
 
     @Column
-    private String type;
+    private String lastName;
 
-    @Column
-    private String title;
+    @OneToOne
+    @JoinColumn(name = "current_outlet_id")
+    private MediaOutlet currentOutlet;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany
+    @JoinTable(name = "contact_outlets",
+               joinColumns = @JoinColumn(name = "social_contact_id"),
+               inverseJoinColumns = @JoinColumn(name = "outlet_id")
+    )
+    private Set<MediaOutlet> outlets;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
-    private ZonedDateTime lastLoginDate;
+    @OneToMany
+    @JoinTable(name = "contact_tags",
+            joinColumns = @JoinColumn(name = "social_contact_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags;
+
+    @OneToMany(mappedBy = "socialContact")
+    private Set<SocialAccount> channels;
 
 }

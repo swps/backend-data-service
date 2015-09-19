@@ -2,6 +2,8 @@ package com.irispr.data.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -24,10 +26,12 @@ public class User {
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentInstantAsTimestamp" )
+    @CreatedDate
     private ZonedDateTime creationDate;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
+    @LastModifiedDate
     private ZonedDateTime updatedDate;
 
     @Column
@@ -46,8 +50,8 @@ public class User {
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "customer_account_id")
+    private CustomerAccount account;
 
     @Column(columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
@@ -63,7 +67,7 @@ public class User {
 
     @OneToMany
     @JoinTable(name = "user_addresses",
-            joinColumns = @JoinColumn(name = "contact_id"),
+            joinColumns = @JoinColumn(name = "social_contact_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
     )
     private Set<Address> addresses;

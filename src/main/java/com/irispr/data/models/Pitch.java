@@ -2,6 +2,8 @@ package com.irispr.data.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -23,10 +25,12 @@ public class Pitch {
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentInstantAsTimestamp" )
+    @CreatedDate
     private ZonedDateTime creationDate;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
+    @LastModifiedDate
     private ZonedDateTime updatedDate;
 
     @Column
@@ -50,8 +54,8 @@ public class Pitch {
     private Campaign campaign;
 
     @OneToOne
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
+    @JoinColumn(name = "social_contact_id")
+    private SocialContact socialContact;
 
     @OneToMany(mappedBy = "pitch")
     private Set<Result> results;

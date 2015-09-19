@@ -2,6 +2,8 @@ package com.irispr.data.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -13,7 +15,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class CustomerAccount {
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -23,10 +25,12 @@ public class Account {
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
+    @CreatedDate
     private ZonedDateTime creationDate;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
+    @LastModifiedDate
     private ZonedDateTime updatedDate;
 
     @Column

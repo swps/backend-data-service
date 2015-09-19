@@ -3,6 +3,8 @@ package com.irispr.data.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -23,15 +25,18 @@ public class Client {
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentInstantAsTimestamp" )
+    @CreatedDate
     private ZonedDateTime creationDate;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     @Type( type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime" )
+    @LastModifiedDate
     private ZonedDateTime updatedDate;
 
+
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "customer_account_id")
+    private CustomerAccount account;
 
     @Column
     private String name;
