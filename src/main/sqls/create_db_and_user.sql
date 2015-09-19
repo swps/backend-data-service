@@ -1,0 +1,11 @@
+CREATE DATABASE irispr;
+
+CREATE USER 'iris'@'%' IDENTIFIED BY 'pr';
+CREATE USER 'iris'@'localhost' IDENTIFIED BY 'pr';
+
+GRANT ALL PRIVILEGES ON irispr.* TO 'iris'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON irispr.* TO 'iris'@'localhost' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+
+USE irispr;
